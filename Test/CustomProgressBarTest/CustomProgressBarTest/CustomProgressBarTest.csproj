@@ -63,8 +63,15 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Converters\ArcEndPointConverter.cs" />
+    <Compile Include="Converters\ArcSizeConverter.cs" />
     <Compile Include="Converters\BorderClipConverter.cs" />
+    <Compile Include="Converters\LargeArcConverter.cs" />
+    <Compile Include="Converters\NotZeroConverter.cs" />
     <Compile Include="Converters\RadiusConverter.cs" />
+    <Compile Include="Converters\RotateTransformCentreConverter.cs" />
+    <Compile Include="Converters\StartPointConverter.cs" />
+    <Compile Include="Extended\ObjectEx.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -78,6 +85,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ProgressBarStyle3.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ProgressBarStyle4.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -108,5 +119,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

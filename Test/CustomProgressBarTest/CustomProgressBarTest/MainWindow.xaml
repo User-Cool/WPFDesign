@@ -12,6 +12,7 @@
                 <ResourceDictionary Source="pack://application:,,,/CustomProgressBarTest;component/ProgressBarStyle1.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/CustomProgressBarTest;component/ProgressBarStyle2.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/CustomProgressBarTest;component/ProgressBarStyle3.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/CustomProgressBarTest;component/ProgressBarStyle4.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
@@ -22,6 +23,7 @@
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="24"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -71,9 +73,15 @@
                      IsIndeterminate="False"
                      Style="{DynamicResource ProgressBarStyle}"/>
 
-        <ProgressBar Grid.Row="1" Grid.Column="1" Width="24" Value="50"
+        <ProgressBar Grid.Row="1" Grid.Column="1" Value="50"
                      Orientation="Vertical"
                      IsIndeterminate="False"
+                     Margin="24 0"
                      Style="{DynamicResource ProgressBarStyle3}"/>
+
+        <ProgressBar Grid.Row="1" Grid.Column="3" Width="72" Height="72" Maximum="100.0" Value="60"
+                     Orientation="Vertical"
+                     IsIndeterminate="False"
+                     Style="{DynamicResource ProgressBarStyle4}"/>
     </Grid>
 </Window>
