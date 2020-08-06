@@ -1,0 +1,42 @@
+﻿<Window x:Class="CustomBorderTest.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CustomBorderTest"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+
+    <!-- Border 是一个 Decorator，没有 Template -->
+    <Window.Resources>
+        <local:BorderClipConverter x:Key="BorderClipConverter"/>
+
+        <Style x:Key="ClipBorderStyle" TargetType="Border">
+            <Setter Property="Clip">
+                <Setter.Value>
+                    <MultiBinding Converter="{StaticResource BorderClipConverter}">
+                        <Binding Path="ActualWidth" RelativeSource="{RelativeSource Mode=Self}"/>
+                        <Binding Path="ActualHeight" RelativeSource="{RelativeSource Mode=Self}"/>
+                        <Binding Path="CornerRadius" RelativeSource="{RelativeSource Mode=Self}"/>
+                    </MultiBinding>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="1" Padding="10" Background="Red" CornerRadius="20">
+            <Border Margin="24" Background="Black" CornerRadius="20" Style="{StaticResource ClipBorderStyle}">
+                
+                <Grid Background="White"/>
+            </Border>
+        </Border>
+        
+    </Grid>
+</Window>
