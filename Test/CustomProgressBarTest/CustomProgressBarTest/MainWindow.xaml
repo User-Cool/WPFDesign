@@ -79,9 +79,9 @@
                      Margin="24 0"
                      Style="{DynamicResource ProgressBarStyle3}"/>
 
-        <ProgressBar Grid.Row="1" Grid.Column="3" Width="72" Height="72" Maximum="100.0" Value="60"
+        <ProgressBar Grid.Row="1" Grid.Column="3" Width="72" Height="72" Maximum="100.0" Value="0"
                      Orientation="Vertical"
-                     IsIndeterminate="False"
+                     IsIndeterminate="True"
                      Style="{DynamicResource ProgressBarStyle4}"/>
     </Grid>
 </Window>

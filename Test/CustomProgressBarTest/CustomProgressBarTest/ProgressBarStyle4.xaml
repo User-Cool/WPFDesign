@@ -38,9 +38,11 @@
                 <ControlTemplate TargetType="{x:Type ProgressBar}">
                     <!-- 资源 -->
                     <ControlTemplate.Resources>
+                        <!-- Indeterminate 状态的动画 -->
                         <Storyboard x:Key="IsIndeterminateStoryboard" TargetName="RotateTransform" TargetProperty="Angle" RepeatBehavior="Forever">
                             <DoubleAnimation From="0" To="359" Duration="0:0:2" />
                         </Storyboard>
+                        <!-- Indeterminate 状态的动画，Value 为 0 的时候触发 -->
                         <Storyboard x:Key="IsFullyIndeterminateStoryboard">
                             <DoubleAnimationUsingKeyFrames Storyboard.TargetName="FullyIndeterminateGridScaleTransform"
                                                            Storyboard.TargetProperty="ScaleX"
