@@ -28,6 +28,9 @@
     <Style x:Key="ScrollViewerStyle" TargetType="{x:Type ScrollViewer}">
         <Setter Property="Focusable" Value="False"/>
         <Setter Property="IsTabStop" Value="False"/>
+        <Setter Property="local:ScrollAnimationBehavior.IsEnabled" Value="False"/>
+        <Setter Property="local:ScrollAnimationBehavior.TimeDuration" Value="00:00:0.00"/>
+        <Setter Property="local:ScrollAnimationBehavior.PointsToScroll" Value="2000"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ScrollViewer}">
