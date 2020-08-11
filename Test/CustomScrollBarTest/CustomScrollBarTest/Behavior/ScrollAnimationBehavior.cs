@@ -5,7 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Media.Animation;
 
 namespace CustomScrollBarTest
@@ -16,6 +18,7 @@ namespace CustomScrollBarTest
     class ScrollAnimationBehavior
     {
         private static ScrollViewer _scrollViewer = new ScrollViewer();
+        private static bool _mouseLeftDown = default; // 鼠标按下
 
 
         #region 附加属性
@@ -112,7 +115,7 @@ namespace CustomScrollBarTest
             if (target != null && target is ScrollViewer)
             {
                 ScrollViewer scroller = target as ScrollViewer;
-                scroller.Loaded += new RoutedEventHandler(ScrollViewerLoaded);
+                scroller.Loaded += new RoutedEventHandler(OnLoaded);
             }
 
             if (target != null && target is ListBox)
@@ -123,6 +126,68 @@ namespace CustomScrollBarTest
         }
 
         #endregion
+
+        #endregion
+
+        #region 事件处理
+
+        /// <summary>
+        /// 在 ScrollViewer 完成加载之后。
+        /// </summary>
+        private static void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            if (sender is ScrollViewer scroll)
+            {
+                //scroll.ScrollChanged += OnScrollChanged;
+                scroll.PreviewMouseWheel += OnMouseWheel;
+
+                var scrollBar = VisualChildrenHelper.FindVisualChildren<ScrollBar>(scroll);
+                foreach (var bar in scrollBar)
+                {
+                    bar.PreviewMouseDown += new MouseButtonEventHandler((obj, args) => { _mouseLeftDown = true; });
+                    bar.PreviewMouseUp += new MouseButtonEventHandler((obj, args) => { _mouseLeftDown = false; });
+                }
+            }   
+        }
+
+        /// <summary>
+        /// 鼠标滚动的时候。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private static void OnMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            ScrollViewerPreviewMouseWheel(sender, e);
+        }
+
+        private static void OnScrollChanged(object sender, ScrollChangedEventArgs e)
+        {
+            if (_mouseLeftDown) return;
+
+            ScrollViewer scrollViewer = (ScrollViewer)sender;
+
+            DoubleAnimation verticalAnimation = new DoubleAnimation
+            {
+                From = scrollViewer.VerticalOffset,
+                To = e.VerticalOffset,
+                Duration = new Duration(GetTimeDuration(scrollViewer))
+            };
+
+            Storyboard storyboard = new Storyboard();
+
+            storyboard.Children.Add(verticalAnimation);
+            Storyboard.SetTarget(verticalAnimation, scrollViewer);
+            Storyboard.SetTargetProperty(verticalAnimation, new PropertyPath(VerticalOffsetProperty));
+            storyboard.Begin();
+
+            e.Handled = true;
+        }
+
+        #endregion
+
+        #region 私有方法
+
+        
 
         #endregion
 
@@ -144,7 +209,7 @@ namespace CustomScrollBarTest
 
             storyboard.Children.Add(verticalAnimation);
             Storyboard.SetTarget(verticalAnimation, scrollViewer);
-            Storyboard.SetTargetProperty(verticalAnimation, new PropertyPath(ScrollAnimationBehavior.VerticalOffsetProperty));
+            Storyboard.SetTargetProperty(verticalAnimation, new PropertyPath(VerticalOffsetProperty));
             storyboard.Begin();
         }
 
