@@ -1,0 +1,15 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:WindowCustomizeTest">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/WindowCustomizeTest;component/Themes/Window.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+
+
+    <Style x:Key="GlowWindowStyle" TargetType="local:GlowWindow" BasedOn="{StaticResource WindowStyle}">
+        <Setter Property="ActiveGlowColor" Value="Red"/>
+        <Setter Property="InactiveGlowColor" Value="Gray"/>
+    </Style>
+    
+</ResourceDictionary>
